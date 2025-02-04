@@ -505,344 +505,345 @@ Similar to `/var/log/syslog`, this file is primarily used on RHEL/CentOS for sto
 
 
 
-## 3- Gestion de réseau
+## 3- Network management
 
-<a id="affichage-configuration-reseau"></a>
-### <span style="color:green;">- Affichage de la configuration réseau</span>
+<a id="network-configuration-display"></a>
+### <span style="color:green;">- Displaying Network Configuration</span>
 
-| Commande | Description | Options clés |
+| Command | Description | Key Options |
 |---|---|---|
-| `ip a` | Affiche les interfaces réseau et adresses IP. | `show`, `add`, `del` |
-| `ip link` | Gère les interfaces réseau. | `set <interface> up/down`, `show` |
-| `ip route` | Affiche et modifie les routes. | `show`, `add`, `del` |
-| `ifconfig` | Ancienne commande pour afficher la configuration réseau. | `up`, `down`, `netmask`, `broadcast` |
+| `ip a` | Displays network interfaces and IP addresses. | `show`, `add`, `del` |
+| `ip link` | Manages network interfaces. | `set <interface> up/down`, `show` |
+| `ip route` | Displays and modifies routes. | `show`, `add`, `del` |
+| `ifconfig` | Old command to display network configuration. | `up`, `down`, `netmask`, `broadcast` |
 
-<a id="surveillance-connexions-ports"></a>
-### <span style="color:green;">- Surveillance des connexions et des ports</span>
+<a id="connections-ports-monitoring"></a>
+### <span style="color:green;">- Monitoring Connections and Ports</span>
 
-| Commande | Description | Options clés |
+| Command | Description | Key Options |
 |---|---|---|
-| `ss -tulnp` | Liste les ports ouverts et les connexions actives. | `-t` (TCP), `-u` (UDP), `-l` (listening), `-n` (numérique), `-p` (processus) |
-| `netstat -tulnp` | Alternative à `ss`, affiche les connexions réseau. | `-a` (tout), `-t` (TCP), `-u` (UDP), `-p` (PID) |
-| `lsof -i` | Affiche les processus qui utilisent des connexions réseau. | `-i :80` (port spécifique), `-iTCP` |
+| `ss -tulnp` | Lists open ports and active connections. | `-t` (TCP), `-u` (UDP), `-l` (listening), `-n` (numeric), `-p` (processes) |
+| `netstat -tulnp` | Alternative to `ss`, displays network connections. | `-a` (all), `-t` (TCP), `-u` (UDP), `-p` (PID) |
+| `lsof -i` | Shows processes using network connections. | `-i :80` (specific port), `-iTCP` |
 
-<a id="capture-analyse-trafic"></a>
-### <span style="color:green;">- Capture et analyse du trafic réseau</span>
+<a id="traffic-capture-analysis"></a>
+### <span style="color:green;">- Capturing and Analyzing Network Traffic</span>
 
-| Commande | Description | Options clés |
+| Command | Description | Key Options |
 |---|---|---|
-| `tcpdump` | Capture et affiche le trafic réseau. | `-i eth0`, `-n` (pas de résolution DNS), `port 80` |
-| `wireshark` | Interface graphique pour l'analyse du trafic. |  |
-| `ngrep` | Recherche de motifs dans le trafic réseau. | `-d eth0 'GET'` (capture requêtes HTTP) |
+| `tcpdump` | Captures and displays network traffic. | `-i eth0`, `-n` (no DNS resolution), `port 80` |
+| `wireshark` | GUI for traffic analysis. |  |
+| `ngrep` | Searches for patterns in network traffic. | `-d eth0 'GET'` (capture HTTP requests) |
 
-<a id="gestion-regles-pare-feu"></a>
-### <span style="color:green;">- Gestion des règles de pare-feu (iptables & nftables)</span>
+<a id="firewall-rules-management"></a>
+### <span style="color:green;">- Managing Firewall Rules (iptables & nftables)</span>
 
-| Commande | Description | Options clés |
+| Command | Description | Key Options |
 |---|---|---|
-| `iptables -L` | Liste les règles du pare-feu. | `-v` (détails), `-n` (numérique) |
-| `iptables -A INPUT -p tcp --dport 22 -j ACCEPT` | Autorise SSH (port 22). | `-A` (ajouter), `-D` (supprimer), `-F` (flush) |
-| `iptables -A INPUT -p tcp --dport 80 -j DROP` | Bloque HTTP (port 80). | `-p tcp` (protocole), `-j DROP` (action) |
-| `iptables-save > rules.v4` | Sauvegarde les règles actuelles. |  |
-| `iptables-restore < rules.v4` | Restaure les règles enregistrées. |  |
-| `nft list ruleset` | Liste les règles nftables. |  |
-| `nft add rule ip filter input tcp dport 22 accept` | Ajoute une règle acceptant SSH. |  |
+| `iptables -L` | Lists firewall rules. | `-v` (details), `-n` (numeric) |
+| `iptables -A INPUT -p tcp --dport 22 -j ACCEPT` | Allows SSH (port 22). | `-A` (add), `-D` (delete), `-F` (flush) |
+| `iptables -A INPUT -p tcp --dport 80 -j DROP` | Blocks HTTP (port 80). | `-p tcp` (protocol), `-j DROP` (action) |
+| `iptables-save > rules.v4` | Saves current rules. |  |
+| `iptables-restore < rules.v4` | Restores saved rules. |  |
+| `nft list ruleset` | Lists nftables rules. |  |
+| `nft add rule ip filter input tcp dport 22 accept` | Adds a rule to allow SSH. |  |
 
-<a id="diagnostic-tests-reseau"></a>
-### <span style="color:green;">- Diagnostic et tests réseau</span>
+<a id="network-diagnostics-tests"></a>
+### <span style="color:green;">- Network Diagnostics and Testing</span>
 
-| Commande | Description | Options clés |
+| Command | Description | Key Options |
 |---|---|---|
-| `ping google.com` | Teste la connectivité avec un hôte. | `-c 4` (nombre de paquets) |
-| `traceroute google.com` | Affiche le chemin des paquets. | `-n` (évite DNS lookup) |
-| `mtr google.com` | Alternative interactive à traceroute. | `-rw` (rapport en ligne de commande) |
-| `dig google.com` | Recherche DNS avancée. | `@8.8.8.8 google.com` (serveur DNS spécifique) |
-| `host google.com` | Résolution DNS rapide. |  |
+| `ping google.com` | Tests connectivity with a host. | `-c 4` (number of packets) |
+| `traceroute google.com` | Displays the path of packets. | `-n` (avoid DNS lookup) |
+| `mtr google.com` | Interactive alternative to traceroute. | `-rw` (command-line report) |
+| `dig google.com` | Advanced DNS lookup. | `@8.8.8.8 google.com` (specific DNS server) |
+| `host google.com` | Quick DNS resolution. |  |
 
-<a id="configuration-surveillance-reseau"></a>
-### <span style="color:green;">- Configuration et surveillance du réseau</span>
+<a id="network-configuration-monitoring"></a>
+### <span style="color:green;">- Network Configuration and Monitoring</span>
 
-| Commande | Description | Options clés |
+| Command | Description | Key Options |
 |---|---|---|
-| `dhclient -r && dhclient eth0` | Renouvelle l'adresse IP via DHCP. |  |
-| `nmcli` | Gère les connexions avec NetworkManager. | `connection show`, `device status` |
-| `systemctl restart networking` | Redémarre les services réseau. |  |
-| `ethtool eth0` | Affiche et modifie les paramètres d'une interface. | `-s eth0 speed 100 duplex full` |
-| `iwconfig wlan0` | Affiche et configure une interface Wi-Fi. | `essid` (SSID), `mode` (Managed/Ad-hoc) |
+| `dhclient -r && dhclient eth0` | Renews IP address via DHCP. |  |
+| `nmcli` | Manages connections with NetworkManager. | `connection show`, `device status` |
+| `systemctl restart networking` | Restarts network services. |  |
+| `ethtool eth0` | Displays and modifies interface settings. | `-s eth0 speed 100 duplex full` |
+| `iwconfig wlan0` | Displays and configures a Wi-Fi interface. | `essid` (SSID), `mode` (Managed/Ad-hoc) |
 
-## 4- stockage
+## 4- storage
 
-<a id="affichage-espace-disque-partitions"></a>
-### <span style="color:green;">- Affichage de l'espace disque et partitions</span>
+<a id="disk-space-display-partitions"></a>
+### <span style="color:green;">- Displaying Disk Space and Partitions</span>
 
-| Commande | Description | Options clés / Astuces |
+| Command | Description | Key Options / Tips |
 |---|---|---|
-| `df -h` | Affiche l'espace disque utilisé et disponible. | `-h` (taille humaine), `-T` (type de FS) |
-| `lsblk` | Liste les périphériques de stockage et leur hiérarchie. | `-f` (système de fichiers), `-o NAME,SIZE,MOUNTPOINT` |
-| `fdisk -l` | Liste les partitions et informations des disques. | `-l` (liste toutes les partitions) |
-| `blkid` | Affiche les UUID et types de systèmes de fichiers. | Utile pour identifier les disques |
-| `mount` | Affiche les partitions montées ou monte un disque. | `mount /dev/sdb1 /mnt` |
-| `umount` | Démonte un système de fichiers. | `umount /mnt` |
-| `findmnt` | Liste les systèmes de fichiers montés en arbre. | `-t ext4` (filtrer par type) |
+| `df -h` | Displays used and available disk space. | `-h` (human-readable size), `-T` (file system type) |
+| `lsblk` | Lists storage devices and their hierarchy. | `-f` (file system), `-o NAME,SIZE,MOUNTPOINT` |
+| `fdisk -l` | Lists partitions and disk information. | `-l` (list all partitions) |
+| `blkid` | Displays UUIDs and file system types. | Useful for identifying disks |
+| `mount` | Displays mounted partitions or mounts a disk. | `mount /dev/sdb1 /mnt` |
+| `umount` | Unmounts a file system. | `umount /mnt` |
+| `findmnt` | Lists mounted file systems in a tree structure. | `-t ext4` (filter by type) |
 
-**Astuce ✨:** `df -ih` pour l'espace disque en inodes. 
+**Tip ✨:** Use `df -ih` to check disk space in inodes. 
 
-<a id="gestion-partitions"></a>
-### <span style="color:green;">- Gestion des partitions (fdisk, parted)</span>
+<a id="partition-management"></a>
+### <span style="color:green;">- Partition Management (fdisk, parted)</span>
 
-| Commande | Description | Options clés |
+| Command | Description | Key Options |
 |---|---|---|
-| `fdisk /dev/sdX` | Outil interactif pour les partitions. | `n` (nouvelle partition), `d` (supprimer) |
-| `parted /dev/sdX` | Outil avancé pour les partitions GPT et MBR. | `mklabel gpt`, `mkpart primary ext4 1MiB 100%` |
-| `mkfs.ext4 /dev/sdX1` | Formate une partition en ext4. | `-L mydisk` (label) |
-| `mkfs.xfs /dev/sdX1` | Formate en XFS. | `-f` (forcer le formatage) |
-| `tune2fs -c 10 /dev/sdX1` | Check auto après 10 montages. | `-i 30d` (check après 30 jours) |
+| `fdisk /dev/sdX` | Interactive partitioning tool. | `n` (new partition), `d` (delete) |
+| `parted /dev/sdX` | Advanced tool for GPT and MBR partitions. | `mklabel gpt`, `mkpart primary ext4 1MiB 100%` |
+| `mkfs.ext4 /dev/sdX1` | Formats a partition as ext4. | `-L mydisk` (label) |
+| `mkfs.xfs /dev/sdX1` | Formats as XFS. | `-f` (force format) |
+| `tune2fs -c 10 /dev/sdX1` | Auto-check after 10 mounts. | `-i 30d` (check after 30 days) |
 
-**Astuce ✨:** `parted` pour les disques GPT (> 2 To). 
+**Tip ✨:** Use `parted` for GPT disks (> 2TB). 
 
-<a id="gestion-avancee-stockage-lvm"></a>
-### <span style="color:green;">- Gestion avancée du stockage avec LVM</span>
+<a id="advanced-storage-management-lvm"></a>
+### <span style="color:green;">- Advanced Storage Management with LVM</span>
 
-| Commande | Description | Options clés |
+| Command | Description | Key Options |
 |---|---|---|
-| `pvcreate /dev/sdX` | Initialise un disque pour LVM. |  |
-| `vgcreate my_vg /dev/sdX` | Crée un volume group. |  |
-| `vgdisplay` | Affiche les infos du VG. |  |
-| `lvcreate -L 10G -n my_lv my_vg` | Crée un volume logique. | `-l 100%FREE` (tout l'espace libre) |
-| `mkfs.ext4 /dev/my_vg/my_lv` | Formate le volume logique. |  |
-| `mount /dev/my_vg/my_lv /mnt` | Monte le volume LVM. |  |
-| `lvextend -L +5G /dev/my_vg/my_lv` | Augmente la taille du LV. |  |
-| `resize2fs /dev/my_vg/my_lv` | Adapte le FS après l'extension. |  |
-| `lvreduce -L 5G /dev/my_vg/my_lv` | Réduit un LV (⚠️ Risque de perte). | `e2fsck -f` avant réduction |
-| `vgextend my_vg /dev/sdY` | Ajoute un disque au VG. |  |
-| `vgreduce` | Retire un disque du VG. |  |
+| `pvcreate /dev/sdX` | Initializes a disk for LVM. |  |
+| `vgcreate my_vg /dev/sdX` | Creates a volume group. |  |
+| `vgdisplay` | Displays VG information. |  |
+| `lvcreate -L 10G -n my_lv my_vg` | Creates a logical volume. | `-l 100%FREE` (use all free space) |
+| `mkfs.ext4 /dev/my_vg/my_lv` | Formats the logical volume. |  |
+| `mount /dev/my_vg/my_lv /mnt` | Mounts the LVM volume. |  |
+| `lvextend -L +5G /dev/my_vg/my_lv` | Expands the LV size. |  |
+| `resize2fs /dev/my_vg/my_lv` | Resizes the file system after expansion. |  |
+| `lvreduce -L 5G /dev/my_vg/my_lv` | Reduces an LV (⚠️ Data loss risk). | `e2fsck -f` before reduction |
+| `vgextend my_vg /dev/sdY` | Adds a disk to the VG. |  |
+| `vgreduce` | Removes a disk from the VG. |  |
 
-**Astuce ✨:** LVM idéal pour redimensionner sans redémarrer. 
+**Tip ✨:** LVM is ideal for resizing without rebooting. 
 
-<a id="controle-reparation-systemes-fichiers"></a>
-### <span style="color:green;">- Contrôle et réparation des systèmes de fichiers</span>
+<a id="file-system-check-repair"></a>
+### <span style="color:green;">- File System Check and Repair</span>
 
-| Commande | Description | Options clés |
+| Command | Description | Key Options |
 |---|---|---|
-| `fsck /dev/sdX1` | Vérifie et répare un système de fichiers. | `-y` (accepte les corrections) |
-| `e2fsck -f /dev/sdX1` | Vérifie un système de fichiers ext4. |  |
-| `xfs_repair /dev/sdX1` | Répare un système XFS. |  |
-| `badblocks -sv /dev/sdX` | Vérifie les secteurs défectueux. |  |
+| `fsck /dev/sdX1` | Checks and repairs a file system. | `-y` (auto-confirm fixes) |
+| `e2fsck -f /dev/sdX1` | Checks an ext4 file system. |  |
+| `xfs_repair /dev/sdX1` | Repairs an XFS file system. |  |
+| `badblocks -sv /dev/sdX` | Scans for bad sectors. |  |
 
-**Astuce ✨:** `fsck` pour réparer un disque en lecture seule. 
+**Tip ✨:** Use `fsck` to repair a read-only disk. 
 
-<a id="sauvegarde-clonage-disques"></a>
-### <span style="color:green;">- Sauvegarde et clonage de disques</span>
+<a id="backup-disk-cloning"></a>
+### <span style="color:green;">- Backup and Disk Cloning</span>
 
-| Commande | Description | Options clés |
+| Command | Description | Key Options |
 |---|---|---|
-| `rsync -avh /source /destination` | Copie de fichiers en préservant les permissions. | `--progress` (afficher la progression) |
-| `dd if=/dev/sdX of=/dev/sdY bs=4M status=progress` | Clone un disque brut (⚠️ Attention à l'ordre). |  |
-| `tar -czf backup.tar.gz /home/user` | Archive un dossier en .tar.gz. | `-xzf` (extraction) |
-| `mount -o loop image.iso /mnt` | Monte une image ISO. |  |
+| `rsync -avh /source /destination` | Copies files while preserving permissions. | `--progress` (show progress) |
+| `dd if=/dev/sdX of=/dev/sdY bs=4M status=progress` | Clones a raw disk (⚠️ Order matters). |  |
+| `tar -czf backup.tar.gz /home/user` | Archives a folder into .tar.gz. | `-xzf` (extract) |
+| `mount -o loop image.iso /mnt` | Mounts an ISO image. |  |
 
-**Astuce ✨:** `rsync` pour copier un disque à chaud. 
+**Tip ✨:** Use `rsync` for live disk copying. 
 
-<a id="surveillance-disques-performances"></a>
-### <span style="color:green;">- Surveillance des disques et des performances</span>
+<a id="disk-monitoring-performance"></a>
+### <span style="color:green;">- Disk Monitoring and Performance</span>
 
-| Commande | Description | Options clés |
+| Command | Description | Key Options |
 |---|---|---|
-| `iostat -dx 1` | Affiche l'utilisation des disques en temps réel. | `-x` (détails avancés) |
-| `vmstat 1` | Surveille l'utilisation mémoire et disques. |  |
-| `iotop` | Affiche les processus consommant le plus d'I/O. | `-o` (afficher seulement les actifs) |
-| `smartctl -a /dev/sdX` | Vérifie l'état SMART d'un disque. | `-t short` (lance un test) |
+| `iostat -dx 1` | Displays real-time disk usage. | `-x` (detailed stats) |
+| `vmstat 1` | Monitors memory and disk usage. |  |
+| `iotop` | Shows processes consuming the most I/O. | `-o` (only active ones) |
+| `smartctl -a /dev/sdX` | Checks SMART status of a disk. | `-t short` (runs a test) |
 
-**Astuce ✨:** `iotop` et `smartctl` pour détecter les pannes. 
+**Tip ✨:** Use `iotop` and `smartctl` to detect failures. 
 
-<a id="chiffrement-securisation-donnees"></a>
-### <span style="color:green;">- Chiffrement et sécurisation des données</span>
+<a id="encryption-data-security"></a>
+### <span style="color:green;">- Encryption and Data Security</span>
 
-| Commande | Description | Options clés |
+| Command | Description | Key Options |
 |---|---|---|
-| `cryptsetup luksFormat /dev/sdX` | Chiffre un disque avec LUKS. |  |
-| `cryptsetup open /dev/sdX my_secure_disk` | Monte un disque chiffré. | `close` pour démonter |
-| `mkfs.ext4 /dev/mapper/my_secure_disk` | Formate la partition chiffrée. |  |
+| `cryptsetup luksFormat /dev/sdX` | Encrypts a disk with LUKS. |  |
+| `cryptsetup open /dev/sdX my_secure_disk` | Mounts an encrypted disk. | `close` to unmount |
+| `mkfs.ext4 /dev/mapper/my_secure_disk` | Formats the encrypted partition. |  |
 
-**Astuce ✨:** LUKS pour chiffrer un disque entier. 
+**Tip ✨:** Use LUKS to encrypt an entire disk.  
 
-## 5- Gestion des utilidateurs 
 
-<a id="gestion-utilisateurs"></a>
-### <span style="color:green;">- Gestion des utilisateurs</span>
+## 5- User Management 
 
-| Commande | Description | Options clés / Astuces |
+## 5- User Management
+
+<a id="user-management"></a>
+### <span style="color:green;">- User Management</span>
+
+| Command | Description | Key Options / Tips |
 |---|---|---|
-| `whoami` | Affiche l'utilisateur actuel. |  |
-| `id` | Affiche l'UID, GID et groupes d'un utilisateur. | `id username` (voir un autre utilisateur) |
-| `who` | Liste les utilisateurs connectés. |  |
-| `w` | Affiche plus de détails sur les sessions actives. |  |
-| `last` | Montre l'historique des connexions. | `last -a` (ajoute l'IP des connexions) |
+| `whoami` | Displays the current user. |  |
+| `id` | Shows the UID, GID, and groups of a user. | `id username` (view another user) |
+| `who` | Lists logged-in users. |  |
+| `w` | Displays more details about active sessions. |  |
+| `last` | Shows login history. | `last -a` (adds IP of connections) |
 
-**Astuce ✨:** Utiliser `w` au lieu de `who` pour voir la charge CPU et les processus actifs. 
+**Tip ✨:** Use `w` instead of `who` to see CPU load and active processes. 
 
-<a id="creation-suppression-utilisateurs"></a>
-### <span style="color:green;">- Création et suppression d'utilisateurs</span>
+<a id="user-creation-deletion"></a>
+### <span style="color:green;">- User Creation and Deletion</span>
 
-| Commande | Description | Options clés |
+| Command | Description | Key Options |
 |---|---|---|
-| `useradd -m username` | Crée un utilisateur avec son répertoire. | `-m` (crée `/home/username`) |
-| `passwd username` | Définit ou modifie le mot de passe. |  |
-| `usermod -l newname oldname` | Renomme un utilisateur. |  |
-| `usermod -aG groupname username` | Ajoute un utilisateur à un groupe. | `-aG` (ajout sans retirer d'autres groupes) |
-| `userdel -r username` | Supprime un utilisateur et son home. | `-r` (supprime les fichiers) |
+| `useradd -m username` | Creates a user with a home directory. | `-m` (creates `/home/username`) |
+| `passwd username` | Sets or changes the password. |  |
+| `usermod -l newname oldname` | Renames a user. |  |
+| `usermod -aG groupname username` | Adds a user to a group. | `-aG` (add without removing other groups) |
+| `userdel -r username` | Deletes a user and their home directory. | `-r` (removes files) |
 
-**Astuce ✨:** Ne jamais modifier `/etc/passwd` à la main ! Utiliser `usermod`. 
+**Tip ✨:** Never manually edit `/etc/passwd`! Use `usermod`. 
 
-<a id="gestion-mots-de-passe"></a>
-### <span style="color:green;">- Gestion des mots de passe</span>
+<a id="password-management"></a>
+### <span style="color:green;">- Password Management</span>
 
-| Commande | Description | Options clés |
+| Command | Description | Key Options |
 |---|---|---|
-| `passwd username` | Modifie le mot de passe d'un utilisateur. |  |
-| `passwd -l username` | Verrouille un compte. | `-u` (déverrouille) |
-| `passwd -e username` | Force le changement au prochain login. |  |
-| `chage -l username` | Affiche les infos d'expiration du mot de passe. |  |
-| `chage -M 90 username` | Définit un mot de passe valide 90 jours. | `-W 7` (prévenir 7 jours avant expiration) |
+| `passwd username` | Changes a user's password. |  |
+| `passwd -l username` | Locks an account. | `-u` (unlocks) |
+| `passwd -e username` | Forces password change on next login. |  |
+| `chage -l username` | Displays password expiration info. |  |
+| `chage -M 90 username` | Sets a password validity of 90 days. | `-W 7` (warns 7 days before expiration) |
 
-**Astuce ✨:** Activer l'expiration automatique des mots de passe avec `chage -M 90 -W 7`. 
+**Tip ✨:** Enable automatic password expiration with `chage -M 90 -W 7`. 
 
-<a id="gestion-groupes"></a>
-### <span style="color:green;">- Gestion des groupes</span>
+<a id="group-management"></a>
+### <span style="color:green;">- Group Management</span>
 
-| Commande | Description | Options clés |
+| Command | Description | Key Options |
 |---|---|---|
-| `groups username` | Liste les groupes d'un utilisateur. |  |
-| `groupadd groupname` | Crée un groupe. |  |
-| `groupdel groupname` | Supprime un groupe. |  |
-| `usermod -aG sudo username` | Ajoute un utilisateur au groupe sudo. | `-aG` (ajout sans retirer les autres groupes) |
-| `gpasswd -d username groupname` | Retire un utilisateur d'un groupe. |  |
+| `groups username` | Lists a user's groups. |  |
+| `groupadd groupname` | Creates a group. |  |
+| `groupdel groupname` | Deletes a group. |  |
+| `usermod -aG sudo username` | Adds a user to the sudo group. | `-aG` (add without removing other groups) |
+| `gpasswd -d username groupname` | Removes a user from a group. |  |
 
-**Astuce ✨:** Le groupe sudo permet d'exécuter des commandes root. Vérifier avec `groups username`. 
+**Tip ✨:** The sudo group allows executing root commands. Check with `groups username`. 
 
-<a id="gestion-permissions-sudoers"></a>
-### <span style="color:green;">- Gestion des permissions et sudoers</span>
+<a id="permissions-sudoers"></a>
+### <span style="color:green;">- Permissions and Sudoers Management</span>
 
-| Commande | Description | Options clés |
+| Command | Description | Key Options |
 |---|---|---|
-| `chmod 755 file` | Modifie les permissions d'un fichier. | `777` (tout le monde peut tout faire) |
-| `chown user:group file` | Change le propriétaire d'un fichier. | `-R` (récursivement) |
-| `sudo visudo` | Modifie le fichier sudoers en toute sécurité. | Ajouter `username ALL=(ALL) NOPASSWD:ALL` |
-| `sudo -l` | Liste les commandes sudo autorisées. |  |
+| `chmod 755 file` | Changes file permissions. | `777` (everyone has full access) |
+| `chown user:group file` | Changes file owner. | `-R` (recursively) |
+| `sudo visudo` | Safely edits the sudoers file. | Add `username ALL=(ALL) NOPASSWD:ALL` |
+| `sudo -l` | Lists allowed sudo commands. |  |
 
-**Astuce ✨:** Ne jamais modifier `/etc/sudoers` directement ! Utiliser `visudo`. 
+**Tip ✨:** Never modify `/etc/sudoers` directly! Use `visudo`. 
 
-<a id="verrouillage-gestion-avancee-comptes"></a>
-### <span style="color:green;">- Verrouillage et gestion avancée des comptes</span>
+<a id="account-locking-advanced-management"></a>
+### <span style="color:green;">- Account Locking and Advanced Management</span>
 
-| Commande | Description | Options clés |
+| Command | Description | Key Options |
 |---|---|---|
-| `usermod -L username` | Verrouille un utilisateur. | `-U` (déverrouille) |
-| `faillog -u username` | Affiche les tentatives de connexion échouées. | `faillog -r -u username` (réinitialise) |
-| `kill -9 -1` | Déconnecte un utilisateur en session (⚠️ Ne pas exécuter en tant que root). |  |
-| `pkill -u username` | Déconnecte un utilisateur spécifique. |  |
+| `usermod -L username` | Locks a user account. | `-U` (unlocks) |
+| `faillog -u username` | Displays failed login attempts. | `faillog -r -u username` (resets) |
+| `kill -9 -1` | Logs out all user sessions (⚠️ Do not run as root). |  |
+| `pkill -u username` | Logs out a specific user. |  |
 
-**Astuce ✨:** Utiliser `faillog` pour détecter les tentatives de connexion échouées.
+**Tip ✨:** Use `faillog` to detect failed login attempts.
 
-## Supervision système
+## System Monitoring
 
-<a id="sar-statistiques-systeme"></a>
-### <span style="color:green;">1. sar - Collecte et affichage des statistiques système</span>
+<a id="sar-system-statistics"></a>
+### <span style="color:green;">1. sar - Collecting and Displaying System Statistics</span>
 
-Le System Activity Report (sar) collecte et affiche des données sur l'utilisation des ressources (CPU, mémoire, disque, réseau).
+The System Activity Report (sar) collects and displays data on resource usage (CPU, memory, disk, network).
 
-| Commande | Description |
+| Command | Description |
 |---|---|
-| `sar -u 5 10` | Affiche l'utilisation CPU toutes les 5 sec, 10 fois. |
-| `sar -q 1 5` | Affiche la charge système toutes les 1 sec, 5 fois. |
-| `sar -r 2 5` | Affiche l'utilisation de la mémoire toutes les 2 sec, 5 fois. |
-| `sar -n DEV 1 5` | Supervise l'activité réseau par interface. |
-| `sar -d 2 3` | Affiche l'activité disque toutes les 2 sec, 3 fois. |
-| `sar -W 1 5` | Surveille l'utilisation du swap. |
-| `sar -f /var/log/sa/sa10` | Affiche les stats collectées le 10 du mois. |
-| `sar -o stats.sar 10 5` | Enregistre les données pour analyse ultérieure. |
-| `sar -f stats.sar` | Lit les données enregistrées. |
+| `sar -u 5 10` | Displays CPU usage every 5 sec, 10 times. |
+| `sar -q 1 5` | Displays system load every 1 sec, 5 times. |
+| `sar -r 2 5` | Displays memory usage every 2 sec, 5 times. |
+| `sar -n DEV 1 5` | Monitors network activity per interface. |
+| `sar -d 2 3` | Displays disk activity every 2 sec, 3 times. |
+| `sar -W 1 5` | Monitors swap usage. |
+| `sar -f /var/log/sa/sa10` | Displays stats collected on the 10th of the month. |
+| `sar -o stats.sar 10 5` | Saves data for later analysis. |
+| `sar -f stats.sar` | Reads the saved data. |
 
-**Astuce ✨:** Enregistrer et analyser les données pour une analyse ultérieure.
+**Tip ✨:** Save and analyze data for later review.
 
-<a id="iostat-surveillance-io-cpu"></a>
-### <span style="color:green;">2. iostat - Surveillance des entrées/sorties disque et CPU</span>
+<a id="iostat-io-cpu-monitoring"></a>
+### <span style="color:green;">2. iostat - Monitoring Disk I/O and CPU</span>
 
-L'outil iostat permet d’analyser l'activité des disques et l’utilisation CPU pour détecter des problèmes liés au stockage.
+The iostat tool helps analyze disk activity and CPU usage to detect storage-related issues.
 
-| Commande | Description |
+| Command | Description |
 |---|---|
-| `iostat` | Affiche un résumé des stats CPU et disques. |
-| `iostat -c 2 5` | Surveille l'utilisation CPU toutes les 2 sec, 5 fois. |
-| `iostat -d 1 10` | Supervise l’activité disque toutes les 1 sec, 10 fois. |
-| `iostat -x` | Affiche des stats détaillées des disques. |
-| `iostat -x /dev/sda 1 10` | Analyse uniquement /dev/sda. |
-| `iostat -x | sort -k 2 -nr` | Trie les disques par taux d'utilisation. |
+| `iostat` | Displays a summary of CPU and disk stats. |
+| `iostat -c 2 5` | Monitors CPU usage every 2 sec, 5 times. |
+| `iostat -d 1 10` | Monitors disk activity every 1 sec, 10 times. |
+| `iostat -x` | Displays detailed disk stats. |
+| `iostat -x /dev/sda 1 10` | Analyzes only /dev/sda. |
+| `iostat -x | sort -k 2 -nr` | Sorts disks by usage rate. |
 
-**Astuce :** Trouver le disque le plus utilisé.
+**Tip:** Find the most used disk.
 
-<a id="vmstat-memoire-cpu-swap"></a>
-### <span style="color:green;">3. vmstat - Surveillance de la mémoire, CPU et swap</span>
+<a id="vmstat-memory-cpu-swap"></a>
+### <span style="color:green;">3. vmstat - Monitoring Memory, CPU, and Swap</span>
 
-L'outil vmstat affiche des statistiques sur la mémoire vive, le swap, les processus et l'utilisation CPU.
+The vmstat tool displays statistics on RAM, swap, processes, and CPU usage.
 
-| Commande | Description |
+| Command | Description |
 |---|---|
-| `vmstat 1 10` | Affiche les stats toutes les 1 sec, 10 fois. |
-| `vmstat -s` | Affiche un résumé détaillé de l'état mémoire. |
-| `vmstat -d` | Affiche les stats d’utilisation des disques. |
-| `vmstat -p /dev/sda` | Supervise une partition spécifique. |
-| `vmstat -a` | Affiche les pages allouées en mémoire. |
-| `vmstat 1 5 | awk '{print $7}'` | Vérifie l'utilisation du swap. |
+| `vmstat 1 10` | Displays stats every 1 sec, 10 times. |
+| `vmstat -s` | Shows a detailed memory summary. |
+| `vmstat -d` | Displays disk usage stats. |
+| `vmstat -p /dev/sda` | Monitors a specific partition. |
+| `vmstat -a` | Displays allocated memory pages. |
+| `vmstat 1 5 | awk '{print $7}'` | Checks swap usage. |
 
-**Astuce ✨:** Détecter un problème de swap.
+**Tip ✨:** Detect swap issues.
 
-<a id="top-htop-surveillance-processus"></a>
-### <span style="color:green;">4. top et htop - Surveillance des processus</span>
+<a id="top-htop-process-monitoring"></a>
+### <span style="color:green;">4. top and htop - Process Monitoring</span>
 
-L’outil top permet de surveiller les processus en temps réel.
+The top tool allows real-time process monitoring.
 
-| Commande | Description |
+| Command | Description |
 |---|---|
-| `top` | Affiche les processus actifs en temps réel. |
-| `top -o %MEM` | Trie par consommation mémoire. |
-| `top -o %CPU` | Trie par utilisation CPU. |
-| `htop` | Alternative plus ergonomique. |
+| `top` | Displays active processes in real time. |
+| `top -o %MEM` | Sorts by memory consumption. |
+| `top -o %CPU` | Sorts by CPU usage. |
+| `htop` | A more user-friendly alternative. |
 
-<a id="free-memoire-ram-swap"></a>
-### <span style="color:green;">5. free - Surveillance de la mémoire RAM et swap</span>
+<a id="free-memory-ram-swap"></a>
+### <span style="color:green;">5. free - Monitoring RAM and Swap Memory</span>
 
-| Commande | Description |
+| Command | Description |
 |---|---|
-| `free -m` | Affiche la mémoire en Mo. |
-| `free -g` | Affiche la mémoire en Go. |
-| `free -h` | Affiche un format lisible humainement. |
-| `watch -n 1 free -m` | Met à jour la mémoire toutes les 1 sec. |
+| `free -m` | Displays memory in MB. |
+| `free -g` | Displays memory in GB. |
+| `free -h` | Displays memory in a human-readable format. |
+| `watch -n 1 free -m` | Updates memory stats every 1 sec. |
 
-**Astuce ✨:** Afficher en continu.
+**Tip ✨:** Continuous display.
 
-<a id="uptime-load-average-charge"></a>
-### <span style="color:green;">6. uptime et load average - Vérifier la charge du système</span>
+<a id="uptime-load-average"></a>
+### <span style="color:green;">6. uptime and load average - Checking System Load</span>
 
-| Commande | Description |
+| Command | Description |
 |---|---|
-| `uptime` | Affiche l'heure, le temps d’uptime et la charge système. |
-| `cat /proc/loadavg` | Affiche la charge moyenne. |
+| `uptime` | Displays system time, uptime, and load average. |
+| `cat /proc/loadavg` | Displays average load. |
 
-**Astuce ✨:** Comprendre load average (1.23 0.98 0.75 - charge sur 1 min, 5 min, 15 min).
+**Tip ✨:** Understanding load average (1.23 0.98 0.75 - load over 1 min, 5 min, 15 min).
 
-<a id="dstat-monitoring-temps-reel"></a>
-### <span style="color:green;">7. dstat - Outil avancé de monitoring en temps réel</span>
+<a id="dstat-real-time-monitoring"></a>
+### <span style="color:green;">7. dstat - Advanced Real-Time Monitoring Tool</span>
 
-L'outil dstat combine vmstat, iostat, netstat et mpstat pour un monitoring en temps réel.
+The dstat tool combines vmstat, iostat, netstat, and mpstat for real-time monitoring.
 
-| Commande | Description |
+| Command | Description |
 |---|---|
-| `dstat` | Affiche un résumé des ressources utilisées. |
-| `dstat -c --top-cpu` | Affiche les processus les plus gourmands en CPU. |
-| `dstat -d --top-io` | Affiche les processus consommant le plus d’E/S disque. |
-| `sudo apt install dstat` | Installe dstat (Debian/Ubuntu). |
-| `sudo yum install dstat` | Installe dstat (RedHat/CentOS). |
+| `dstat` | Displays a summary of resource usage. |
+| `dstat -c --top-cpu` | Shows top CPU-consuming processes. |
+| `dstat -d --top-io` | Displays top disk I/O-consuming processes. |
+| `sudo apt install dstat` | Installs dstat (Debian/Ubuntu). |
+| `sudo yum install dstat` | Installs dstat (RedHat/CentOS). |
 
-
-![alt text](https://lh3.googleusercontent.com/gg/AJxt1KPMIsAPkGCMm8orufWRCQ76_8WwPdSCOvpV7u4FIzAVgcLyB5v9Q04pqLd5XBUhufRU2i52mrogiiPfA-QXxQaoxnkU6dGqp-i7qSMJ6recYt09A4c_AbEVSEltbEfq4o01bc99xXO4DYfgV-tQTUTW8BM9u0KvccTPc_Q5dW9EMbA7U4Aq "usefull-commands") 
