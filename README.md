@@ -666,9 +666,6 @@ Similar to `/var/log/syslog`, this file is primarily used on RHEL/CentOS for sto
 
 **Tip ✨:** Use LUKS to encrypt an entire disk.  
 
-
-## 5- User Management 
-
 ## 5- User Management
 
 <a id="user-management"></a>
@@ -747,7 +744,7 @@ Similar to `/var/log/syslog`, this file is primarily used on RHEL/CentOS for sto
 
 **Tip ✨:** Use `faillog` to detect failed login attempts.
 
-## System Monitoring
+## 6- System Monitoring
 
 <a id="sar-system-statistics"></a>
 ### <span style="color:green;">1. sar - Collecting and Displaying System Statistics</span>
